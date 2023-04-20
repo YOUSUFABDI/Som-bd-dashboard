@@ -78,7 +78,7 @@ function getAllAppointments($conn){
     $array_data = array();
 
 
-    $query = "     SELECT `appointment_id`, `name`, `appintmentDay`, `hospital`, `description` FROM `appointment` ";
+    $query = "     SELECT `id`, `name`, `appintmentDay`, `hospital`, `description` FROM `appointment` ";
 
     $result = $conn->query($query);
 

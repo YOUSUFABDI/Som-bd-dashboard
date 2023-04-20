@@ -3,8 +3,10 @@ include 'header.php';
 include 'sidebar.php';
 ?>
 
-    <!-- [ Main Content ] start -->
-    <div class="pcoded-main-container">
+<!-- [ Main Content ] start -->
+<?php if(isset($_SESSION['username']) &&  !empty($_SESSION['username'])){ 
+?>
+<div class="pcoded-main-container">
       <div class="pcoded-wrapper">
         <div class="pcoded-content">
           <div class="pcoded-inner-content">
@@ -201,8 +203,15 @@ include 'sidebar.php';
           </div>
         </div>
       </div>
-    </div>
-    <!-- [ Main Content ] end -->
+</div>
+<?php } else { ?>
+<!-- header('Location: login.php'); -->
+<script>
+    window.location.href = "../views/login.php";
+</script>
+<?php } ?>
+
+<!-- [ Main Content ] end -->
 
 <?php
 include 'footer.php';
