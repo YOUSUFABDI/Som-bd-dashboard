@@ -62,7 +62,7 @@ include 'sidebar.php';
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
+          <h5 class="modal-title">Form</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -89,6 +89,7 @@ include 'sidebar.php';
                       <div class="form-group">
                           <label for="">Full Name</label>
                           <input type="text" name="full_name" id="full_name" class="form-control">
+                          <p class="err_name" style="color: red"></p>
                       </div>
                   </div>
                   <!-- name -->
@@ -101,6 +102,7 @@ include 'sidebar.php';
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
                           </select>
+                          <p class="err_gender" style="color: red"></p>
                       </div>
                   </div>
                   <!-- gender -->
@@ -113,6 +115,7 @@ include 'sidebar.php';
                               <option value="Donor">Donor</option>
                               <option value="Recpient">Recpient</option>
                           </select>
+                          <p class="err_usertype" style="color: red"></p>
                       </div>
                   </div>
                   <!-- user type -->
@@ -127,6 +130,7 @@ include 'sidebar.php';
                               <option value="AB">AB</option>
                               <option value="O">O</option>
                           </select>
+                          <p class="err_bdtype" style="color: red"></p>
                       </div>
                   </div>
                   <!-- blood type -->
@@ -136,6 +140,7 @@ include 'sidebar.php';
                       <div class="form-group">
                           <label for="">Phone</label>
                           <input class="form-control" type="text" name="phonenumber" id="phonenumber">
+                          <p class="err_phone" style="color: red"></p>
                       </div>
                   </div>
                   <!-- phone -->
@@ -145,6 +150,7 @@ include 'sidebar.php';
                       <div class="form-group">
                           <label for="">Gmail</label>
                           <input class="form-control" type="text" name="email" id="email">
+                          <p class="err_gmail" style="color: red"></p>
                       </div>
                   </div>
                   <!-- gmail -->
@@ -154,6 +160,7 @@ include 'sidebar.php';
                       <div class="form-group">
                           <label for="">Username</label>
                           <input class="form-control" type="text" name="username" id="username">
+                          <p class="err_username" style="color: red"></p>
                       </div>
                   </div>
                   <!-- username -->
@@ -163,24 +170,17 @@ include 'sidebar.php';
                       <div class="form-group">
                           <label for="">Password</label>
                           <input class="form-control" type="text" name="password" id="password">
+                          <p class="err_pass" style="color: red"></p>
                       </div>
                   </div>
                   <!-- password -->
-
-                  <!-- confirmpassword -->
-                  <div class="col-sm-12">
-                      <div class="form-group">
-                          <label for="">Confirm Password</label>
-                          <input class="form-control" type="text" name="confirmpass" id="confirmpass">
-                      </div>
-                  </div>
-                  <!-- confirmpassword -->
 
                   <!-- address -->
                   <div class="col-sm-12">
                       <div class="form-group">
                           <label for="">Address</label>
                           <input class="form-control" type="text" name="address" id="address">
+                          <p class="err_address" style="color: red"></p>
                       </div>
                   </div>
                   <!-- address -->

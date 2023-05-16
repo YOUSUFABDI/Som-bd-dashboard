@@ -8,14 +8,28 @@ function registerAdmin($conn){
 
     $data = array();
 
-    $query = "INSERT INTO `admins`(`gmail`, `username`, `password`) VALUES('$gmail', '$username', '$password')";
+    // check if email is taken
+    $get_admin_gmail = "SELECT `gmail` FROM `admins` WHERE gmail = '$gmail' ";
+    $res_admin_gmail = $conn->query($get_admin_gmail);
 
-    $result = $conn->query($query);
+    // check if username is taken 
+    $get_admin_username = "SELECT `username` FROM `admins` WHERE username = '$username' ";
+    $res_admin_username = $conn->query($get_admin_username);
 
-    if($result){
-        $data = array("status" => true, "data" => "Registered SuccessFully");
+    if(mysqli_num_rows($res_admin_gmail) > 0){
+        $data = array("status" => false, "data" => "Sorry that gmail was already taken 😔😔"); 
+    }else if(mysqli_num_rows($res_admin_username) > 0){
+        $data = array("status" => false, "data" => "Sorry that username was already taken 😔😔"); 
     }else{
-        $data = array("status" => false, "data" => $conn->error);
+        $query = "INSERT INTO `admins`(`gmail`, `username`, `password`) VALUES('$gmail', '$username', '$password')";
+
+        $result = $conn->query($query);
+    
+        if($result){
+            $data = array("status" => true, "data" => "Registered SuccessFully");
+        }else{
+            $data = array("status" => false, "data" => $conn->error);
+        }
     }
 
     echo json_encode($data);

@@ -24,7 +24,12 @@ session_start();
     <meta name="author" content="CodedThemes"/>
 
     <!-- Favicon icon -->
-    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon">
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="../assets/images/blood-icon.png"
+    />
     <!-- fontawesome icon -->
     <link rel="stylesheet" href="../assets/fonts/fontawesome/css/fontawesome-all.min.css">
     <!-- animation css -->

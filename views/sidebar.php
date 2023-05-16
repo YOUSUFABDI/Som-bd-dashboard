@@ -3,8 +3,9 @@
         <div class="navbar-wrapper">
             <div class="navbar-brand header-logo">
                 <a href="index.html" class="b-brand">
-                    <div class="b-bg">
-                        <i class="feather icon-trending-up"></i>
+                    <div class="" style="background: white; border-radius: 50%">
+                        <!-- <i class="feather icon-trending-up"></i> -->
+                        <img src="../assets/images/blood-icon.png" alt="" style="width: 30px; height: 30px">
                     </div>
                     <span class="b-title">Som Blood</span>
                 </a>

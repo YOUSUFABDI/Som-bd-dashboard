@@ -9,6 +9,17 @@ function openModa() {
 function handleForm(event) {
   event.preventDefault();
 
+  const errorMessages = [];
+
+  validateForm(errorMessages);
+
+  // checking if error exists
+  if (errorMessages.length > 0) return;
+
+  registerUser();
+}
+
+function registerUser() {
   let id = $("#update_id").val();
   let fullName = $("#full_name").val();
   let gender = $("#gender").val();
@@ -19,7 +30,6 @@ function handleForm(event) {
   let gmail = $("#email").val();
   let username = $("#username").val();
   let password = $("#password").val();
-  let confirmpass = $("#confirmpass").val();
 
   let sendingData = {};
 
@@ -31,7 +41,6 @@ function handleForm(event) {
       gmail: gmail,
       userName: username,
       password: password,
-      confirmPass: confirmpass,
       address: address,
       gender: gender,
       phone: phonenumber,
@@ -296,6 +305,79 @@ function handleSearchForm(event) {
       console.log(data);
     },
   });
+}
+
+function validateForm(errorMessages) {
+  // get err paragraphs
+  const errName = document.querySelector(".err_name");
+  const errPhone = document.querySelector(".err_phone");
+  const errGmail = document.querySelector(".err_gmail");
+  const errUsername = document.querySelector(".err_username");
+  const errPassword = document.querySelector(".err_pass");
+  const errAddress = document.querySelector(".err_address");
+
+  // get input elements to validate
+  const fullName = document.querySelector("#full_name");
+  const phoneNumber = document.querySelector("#phonenumber");
+  const gmail = document.querySelector("#email");
+  const userName = document.querySelector("#username");
+  const password = document.querySelector("#password");
+  const address = document.querySelector("#address");
+
+  // check input values if they null or valid
+  // name
+  const validName = new RegExp(
+    /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/
+  );
+  if (!validName.test(fullName.value)) {
+    errorMessages.push("enter your name");
+    errName.innerText = "enter your name";
+  } else {
+    errName.innerText = "";
+  }
+
+  // phone
+  const validPhone = new RegExp(/^[6]\d{8}$/);
+  if (!validPhone.test(phoneNumber.value)) {
+    errorMessages.push("invalid phone number");
+    errPhone.innerText = "invalid phone number";
+  } else {
+    errPhone.innerText = "";
+  }
+
+  // gmail
+  const validGmail = new RegExp(/^[\w.+\-]+@gmail\.com$/);
+  if (!validGmail.test(gmail.value)) {
+    errorMessages.push("invalid gamil");
+    errGmail.innerText = "invalid gamil";
+  } else {
+    errGmail.innerText = "";
+  }
+
+  // username
+  if (!validName.test(userName.value)) {
+    errorMessages.push("invalid username");
+    errUsername.innerText = "invalid username";
+  } else {
+    errUsername.innerText = "";
+  }
+
+  // password
+  const validPassword = new RegExp(/^.{8,30}$/);
+  if (!validPassword.test(password.value)) {
+    errorMessages.push("inavlid password");
+    errPassword.innerText = "invalid password";
+  } else {
+    errPassword.innerText = "";
+  }
+
+  // address
+  if (!address.value) {
+    errorMessages.push("invalid address");
+    errAddress.innerText = "invalid address";
+  } else {
+    errAddress.innerText = "";
+  }
 }
 
 $("#addNewUser").on("click", openModa);
