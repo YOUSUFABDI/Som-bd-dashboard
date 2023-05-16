@@ -2,7 +2,7 @@
     <nav class="pcoded-navbar">
         <div class="navbar-wrapper">
             <div class="navbar-brand header-logo">
-                <a href="index.html" class="b-brand">
+                <a href="./content.php" class="b-brand">
                     <div class="" style="background: white; border-radius: 50%">
                         <!-- <i class="feather icon-trending-up"></i> -->
                         <img src="../assets/images/blood-icon.png" alt="" style="width: 30px; height: 30px">
@@ -58,11 +58,11 @@
     <header class="navbar pcoded-header navbar-expand-lg navbar-light">
         <div class="m-header">
             <a class="mobile-menu" id="mobile-collapse1" href="javascript:"><span></span></a>
-            <a href="index.html" class="b-brand">
-                   <div class="b-bg">
-                       <i class="feather icon-trending-up"></i>
+            <a href="./content.php" class="b-brand">
+                   <div class="" style="background: white; border-radius: 50%">
+                       <img src="../assets/images/blood-icon.png" alt="" style="width: 30px; height: 30px;">
                    </div>
-                   <span class="b-title">Datta Able</span>
+                   <span class="b-title">Som Blood</span>
                </a>
         </div>
         <a class="mobile-menu" id="mobile-header" href="javascript:">
