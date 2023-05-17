@@ -1,7 +1,5 @@
 loadUsers();
 
-let btnAction = "Insert";
-
 function openModa() {
   $("#usersModal").modal("show");
 }
@@ -19,6 +17,19 @@ function handleForm(event) {
   registerUser();
 }
 
+function handleUpdateForm(event) {
+  event.preventDefault();
+
+  const errorMessages = [];
+
+  validateUpdateModal(errorMessages);
+
+  // checking if error exists
+  if (errorMessages.length > 0) return;
+
+  updateUserInfo();
+}
+
 function registerUser() {
   let id = $("#update_id").val();
   let fullName = $("#full_name").val();
@@ -31,35 +42,18 @@ function registerUser() {
   let username = $("#username").val();
   let password = $("#password").val();
 
-  let sendingData = {};
-
-  if (btnAction == "Insert") {
-    sendingData = {
-      fullName: fullName,
-      userType: userType,
-      bloodType: bloodType,
-      gmail: gmail,
-      userName: username,
-      password: password,
-      address: address,
-      gender: gender,
-      phone: phonenumber,
-      action: "registerUser",
-    };
-  } else {
-    sendingData = {
-      id: id,
-      fullName: fullName,
-      userType: userType,
-      bloodType: bloodType,
-      gmail: gmail,
-      userName: username,
-      address: address,
-      gender: gender,
-      phone: phonenumber,
-      action: "updateUserInfo",
-    };
-  }
+  let sendingData = {
+    fullName: fullName,
+    userType: userType,
+    bloodType: bloodType,
+    gmail: gmail,
+    userName: username,
+    password: password,
+    address: address,
+    gender: gender,
+    phone: phonenumber,
+    action: "registerUser",
+  };
 
   $.ajax({
     method: "POST",
@@ -77,7 +71,6 @@ function registerUser() {
           icon: "success",
         });
 
-        btnAction = "Insert";
         loadUsers();
 
         $("#full_name").val("");
@@ -89,9 +82,59 @@ function registerUser() {
         $("#email").val("");
         $("#username").val("");
         $("#password").val("");
-        $("#confirmpass").val("");
 
         $("#usersModal").modal("hide");
+      } else {
+        swal(response, {
+          buttons: false,
+          timer: 3000,
+          icon: "error",
+        });
+      }
+    },
+    error: function (data) {
+      console.log(data);
+    },
+  });
+}
+
+function updateUserInfo() {
+  let id = $("#update_id").val();
+  let fullName = $("#update_full_name").val();
+  let gender = $("#update_gender").val();
+  let bloodType = $("#update_bloodType").val();
+  let address = $("#update_address").val();
+  let userType = $("#update_userType").val();
+
+  let sendingData = {
+    id: id,
+    fullName: fullName,
+    userType: userType,
+    bloodType: bloodType,
+    address: address,
+    gender: gender,
+    action: "updateUserInfo",
+  };
+
+  $.ajax({
+    method: "POST",
+    dataType: "JSON",
+    url: "../api/manage_user.php",
+    data: sendingData,
+    success: function (data) {
+      let status = data.status;
+      let response = data.data;
+
+      if (status) {
+        swal(response, {
+          buttons: false,
+          timer: 3000,
+          icon: "success",
+        });
+
+        loadUsers();
+
+        $("#updateModal").modal("hide");
       } else {
         swal(response, {
           buttons: false,
@@ -176,21 +219,14 @@ function fetchUser(id) {
       let response = data.data;
 
       if (status) {
-        btnAction = "Update";
-
         $("#update_id").val(response["id"]);
-        $("#full_name").val(response["fullName"]);
-        $("#gender").val(response["gender"]);
-        $("#bloodType").val(response["bloodType"]);
-        $("#phonenumber").val(response["phone"]);
-        $("#address").val(response["address"]);
-        $("#userType").val(response["userType"]);
-        $("#email").val(response["gmail"]);
-        $("#username").val(response["username"]);
-        $("#password").val(response["password"]);
-        $("#confirmpass").val(response["confirmPass"]);
+        $("#update_full_name").val(response["fullName"]);
+        $("#update_gender").val(response["gender"]);
+        $("#update_bloodType").val(response["bloodType"]);
+        $("#update_address").val(response["address"]);
+        $("#update_userType").val(response["userType"]);
 
-        $("#usersModal").modal("show");
+        $("#updateModal").modal("show");
       } else {
         alert(response);
       }
@@ -380,8 +416,39 @@ function validateForm(errorMessages) {
   }
 }
 
+function validateUpdateModal(errorMessages) {
+  // get err paragraphs
+  const errName = document.querySelector(".err_update_name");
+  const errAddress = document.querySelector(".err_update_address");
+
+  // get input elements to validate
+  const fullName = document.querySelector("#update_full_name");
+  const address = document.querySelector("#update_address");
+
+  // check input values if they null or valid
+  // name
+  const validName = new RegExp(
+    /^[\w'\-,.][^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/
+  );
+  if (!validName.test(fullName.value)) {
+    errorMessages.push("enter your name");
+    errName.innerText = "enter your name";
+  } else {
+    errName.innerText = "";
+  }
+
+  // address
+  if (!address.value) {
+    errorMessages.push("invalid address");
+    errAddress.innerText = "invalid address";
+  } else {
+    errAddress.innerText = "";
+  }
+}
+
 $("#addNewUser").on("click", openModa);
 $("#usersForm").on("submit", handleForm);
+$("#updateForm").on("submit", handleUpdateForm);
 $("#UsersTable").on("click", "a.update_info", getUserId);
 $("#UsersTable").on("click", "a.delete_info", getUserIdTodelete);
 $("#searchBloodType").on("submit", handleSearchForm);

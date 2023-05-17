@@ -66,34 +66,14 @@ function updateUserInfo($conn){
 
     $data = array();
 
-    // check if phone is taken
-    $get_reg_user_phone = "SELECT `phone` FROM `users` WHERE phone = '$phone' ";
-    $res_reg_user_phone = $conn->query($get_reg_user_phone);
-
-    // check if gmail is taken
-    $get_reg_user_gmail = "SELECT `gmail` FROM `users` WHERE gmail = '$gmail' ";
-    $res_reg_user_gmail = $conn->query($get_reg_user_gmail);
+    $query = " UPDATE `users` SET `fullName`='$fullName', `gender`='$gender', `userType`='$userType', `bloodType`='$bloodType', `address`='$address'  WHERE id = '$id' ";
     
-    // check if username is taken
-    $get_reg_user_username = "SELECT `username` FROM `users` WHERE username = '$userName' ";
-    $res_reg_user_username = $conn->query($get_reg_user_username);
-
-    if(mysqli_num_rows($res_reg_user_phone) > 0){
-        $data = array("status" => false, "data" => "Sorry that phone number was already taken 😔😔");
-    }else if(mysqli_num_rows($res_reg_user_gmail) > 0){
-        $data = array("status" => false, "data" => "Sorry that gmail was already taken 😔😔");
-    }else if(mysqli_num_rows($res_reg_user_username) > 0){
-        $data = array("status" => false, "data" => "Sorry that username was already taken 😔😔");
+    $result = $conn->query($query);
+    
+    if($result){
+        $data = array("status" => true, "data" => "Updated SuccessFully 👌");
     }else{
-        $query = " UPDATE `users` SET `fullName`='$fullName', `gender`='$gender', `userType`='$userType', `bloodType`='$bloodType', `phone`='$phone', `gmail`='$gmail', `username`='$userName', `address`='$address'  WHERE id = '$id' ";
-    
-        $result = $conn->query($query);
-    
-        if($result){
-            $data = array("status" => true, "data" => "Updated SuccessFully 👌");
-        }else{
-            $data = array("status" => false, "data" => $conn->error);
-        }
+        $data = array("status" => false, "data" => $conn->error);
     }
 
     echo json_encode($data);
