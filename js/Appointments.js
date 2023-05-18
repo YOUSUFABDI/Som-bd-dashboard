@@ -87,54 +87,53 @@ function handleSearchForm(event) {
   $("#appointmentsTable tbody").html("");
   $("#appointmentsTable thead").html("");
 
-  let appintmentDay = $("#search_day").val();
-  console.log(appintmentDay);
+  let phone = $("#search_phone").val();
 
-  if (!appintmentDay) {
+  if (!phone) {
     $("#appointmentsTable tbody").html(`Nothing Found ‼️`);
+  } else {
+    let sendingData = {
+      phone: phone,
+      action: "searchAppointmentDay",
+    };
+
+    $.ajax({
+      method: "POST",
+      dataType: "JSON",
+      url: "../api/appointment.php",
+      data: sendingData,
+      success: function (data) {
+        let status = data.status;
+        let response = data.data;
+
+        let tr = "";
+        let th = "";
+
+        if (status) {
+          response.forEach((res) => {
+            th = "<tr>";
+            for (let r in res) {
+              th += `<span> <th>${r}</th> </span>`;
+            }
+            th += "</tr>";
+
+            tr += "<tr>";
+            for (let i in res) {
+              tr += `<span> <td>${res[i]}</td> </span>`;
+            }
+            tr += "</tr>";
+          });
+          $("#appointmentsTable tbody").append(tr);
+          $("#appointmentsTable thead").append(th);
+        } else {
+          console.log(response);
+        }
+      },
+      error: function (data) {
+        console.log(data);
+      },
+    });
   }
-
-  let sendingData = {
-    appintmentDay: appintmentDay,
-    action: "searchAppointmentDay",
-  };
-
-  $.ajax({
-    method: "POST",
-    dataType: "JSON",
-    url: "../api/appointment.php",
-    data: sendingData,
-    success: function (data) {
-      let status = data.status;
-      let response = data.data;
-
-      let tr = "";
-      let th = "";
-
-      if (status) {
-        response.forEach((res) => {
-          th = "<tr>";
-          for (let r in res) {
-            th += `<span> <th>${r}</th> </span>`;
-          }
-          th += "</tr>";
-
-          tr += "<tr>";
-          for (let i in res) {
-            tr += `<span> <td>${res[i]}</td> </span>`;
-          }
-          tr += "</tr>";
-        });
-        $("#appointmentsTable tbody").append(tr);
-        $("#appointmentsTable thead").append(th);
-      } else {
-        console.log(response);
-      }
-    },
-    error: function (data) {
-      console.log(data);
-    },
-  });
 }
 
 $("#print_statement").on("click", printStatement);

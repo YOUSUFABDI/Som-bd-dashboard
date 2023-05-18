@@ -31,7 +31,7 @@ function searchAppointmentDay($conn){
     $data = array();
     $array_data = array();
 
-    $query = " SELECT  `id`, `name`, `appintmentDay`, `hospital`, `description` FROM `appointment` WHERE appintmentDay = '$appintmentDay' ";
+    $query = " SELECT  `id`, `name`, `appintmentDay`, `hospital`, `description`, `phone` FROM `appointment` WHERE phone = '$phone' ";
 
     $result = $conn->query($query);
 

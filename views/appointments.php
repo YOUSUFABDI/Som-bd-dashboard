@@ -30,7 +30,7 @@ include 'sidebar.php';
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <div class="active-cyan-3 active-cyan-4 mb-4">
-                                            <input class="form-control" type="text" placeholder="Search By Day" aria-label="Search" name="search_day" id="search_day">
+                                            <input class="form-control" type="text" placeholder="Search By Phone Number" aria-label="Search" name="search_phone" id="search_phone">
                                             </div>
                                         </div>
                                         <div class="col-sm-4">
