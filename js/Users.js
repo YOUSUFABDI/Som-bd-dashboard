@@ -170,6 +170,7 @@ function loadUsers() {
       let th = "";
 
       if (status) {
+        console.log(response);
         response.forEach((res) => {
           th = "<tr>";
           for (let r in res) {
@@ -281,7 +282,7 @@ function getUserId() {
 
 function getUserIdTodelete() {
   let id = $(this).attr("delete_id");
-  deleteUser(id);
+  if (confirm("Are you sure to delete?")) deleteUser(id);
 }
 
 function handleSearchForm(event) {
